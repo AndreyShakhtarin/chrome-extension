@@ -1,0 +1,49 @@
+{
+  "name": "chrome-extentions",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build-watch-vue": "vite build --watch --config ./vite.config.js",
+    "build-watch-background": "vite build --watch --config ./background.config.js",
+    "build-vue": "vite build --config ./vite.config.js",
+    "build-background": "vite build --config ./background.config.js && cp ./build/background.js dist/js/background.js",
+    "build": "vite build --config ./background.config.js && vite build --config ./vite.config.js",
+    "preview": "vite preview",
+    "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
+    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
+    "test:unit": "cypress run --component",
+    "test:unit:dev": "cypress open --component"
+  },
+  "dependencies": {
+    "@vueform/vueform": "^1.9.3",
+    "dotenv": "^16.4.5",
+    "pinia": "^2.1.7",
+    "tailwind": "^4.0.0",
+    "v-clipboard": "^3.0.0-next.1",
+    "vite-plugin-static-copy": "^1.0.2",
+    "vue": "^3.4.21",
+    "vue-cli-plugin-pinia": "^0.2.4",
+    "vue-copy-to-clipboard": "^1.0.3",
+    "vueform": "^2.0.0",
+    "vuetify-form-base": "^0.3.3",
+    "webextension-polyfill": "^0.10.0",
+    "webextension-polyfill-ts": "^0.26.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "autoprefixer": "^10.4.19",
+    "cypress": "^13.7.0",
+    "postcss": "^8.4.38",
+    "start-server-and-test": "^2.0.3",
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.1.6"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true
+    }
+  }
+}
