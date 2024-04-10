@@ -1,3 +1,5 @@
+const env = import.meta.env;
+
 export default class CarGurusAdapter {
 
     currentUrl = false
@@ -8,9 +10,11 @@ export default class CarGurusAdapter {
 
     queryParam = 'cargurusUrl'
 
-
     is(url) {
-        return (url.indexOf('https://www.cargurus.co.uk') !== -1) || (url.indexOf('https://sp.cargurus.co.uk/tr/tp2') !== -1);
+        this.is_has = (url.indexOf('cargurus.co.uk') !== -1) || (url.indexOf('sp.cargurus.co.uk/tr/tp2') !== -1);
+        this.is_has ? this.currentUrl = url : false
+
+        return this.is_has;
     }
 
     isActive(url) {
@@ -30,6 +34,6 @@ export default class CarGurusAdapter {
     }
 
     getCarSearchUrl() {
-        return 'http://carsearch.local/campaigns/create' + '?' + this.queryParam + '=' + encodeURIComponent(this.getCurrentUrl())
+        return process.env.APP_URL + '?' + this.queryParam + '=' + encodeURIComponent(this.getCurrentUrl())
     }
 }

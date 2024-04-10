@@ -1,3 +1,5 @@
+const env = import.meta.env;
+
 export default class G3MarketingAdapter {
 
     currentUrl = false
@@ -29,6 +31,6 @@ export default class G3MarketingAdapter {
     }
 
     getCarSearchUrl() {
-        return 'http://carsearch.local/campaigns/create' + '?' + this.queryParam + '=' + encodeURIComponent(this.getCurrentUrl())
+        return process.env.APP_URL +  + '?' + this.queryParam + '=' + encodeURIComponent(this.getCurrentUrl())
     }
 }

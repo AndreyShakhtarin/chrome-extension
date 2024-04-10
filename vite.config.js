@@ -3,10 +3,13 @@ import {fileURLToPath, URL} from 'node:url'
 import {viteStaticCopy} from 'vite-plugin-static-copy'
 import {defineConfig, loadEnv} from 'vite'
 import vue from '@vitejs/plugin-vue'
+import 'dotenv/config'
+
+// require('dotenv').config()
 
 // https://vitejs.dev/config/
 export default defineConfig((mode) => {
-    process.env = Object.assign(process.env, loadEnv(mode, process.cwd(), ''));
+    process.env = {...process.env, ...loadEnv(mode, process.cwd())};
 
     return {
         plugins: [
@@ -20,6 +23,12 @@ export default defineConfig((mode) => {
                 ]
             }),
         ],
+        define: {
+            ...Object.keys(process.env).reduce((prev, key) => {
+                prev[`process.env.${key}`] = JSON.stringify(process.env[key])
+                return prev
+            }, {}),
+        },
         resolve: {
             alias: {
                 '@': fileURLToPath(new URL('./src', import.meta.url))

@@ -8,9 +8,11 @@ export default class AutoTradeAdapter {
 
     queryParam = 'autotraderUrl'
 
+    passiveUrl = ''
+
     is(url) {
         this.is_has = url.indexOf('autotrader.co.uk/car-search') !== -1
-        this.is_has ? this.currentUrl = url : false
+        this.is_has ? this.passiveUrl = url : false
 
         return this.is_has;
     }
@@ -32,6 +34,6 @@ export default class AutoTradeAdapter {
     }
 
     getCarSearchUrl() {
-        return 'http://carsearch.local/campaigns/create' + '?' + this.queryParam + '=' + encodeURIComponent(this.getCurrentUrl())
+        return process.env.APP_URL + '?' + this.queryParam + '=' + encodeURIComponent(this.getCurrentUrl())
     }
 }

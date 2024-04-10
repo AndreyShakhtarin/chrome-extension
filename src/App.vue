@@ -14,7 +14,7 @@ export default {
     return {
       isActive: false,
       current_url: false,
-      query: { active: true, currentWindow: true },
+      query: {active: true, currentWindow: true},
       baseParserInstance: new BaseParser(),
       adapter: false
     }
@@ -28,7 +28,6 @@ export default {
 
     onUpdating() {
       browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
-        this.current_url = 'test!!!!'
         if (changeInfo.status === "complete") {
           browser.webRequest.onBeforeRequest.hasListener(this.parseDetails) ? browser.webRequest.onBeforeRequest.removeListener(this.parseDetails) : false;
           browser.webRequest.onBeforeRequest.addListener(this.parseDetails, {urls: ["<all_urls>"]}, ["requestBody"])
@@ -37,8 +36,8 @@ export default {
     },
 
     parseDetails(details) {
-      this.baseParserInstance.setDetails(details)
-      this.current_url = this.baseParserInstance.getCurrentUrl()
+      this.adapter.setDetails(details)
+      this.current_url = this.adapter.getCurrentUrl()
     }
   },
   mounted() {

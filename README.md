@@ -22,6 +22,3 @@ yarn build
 ```
 root_dir/dist
 ```
-
-
-
