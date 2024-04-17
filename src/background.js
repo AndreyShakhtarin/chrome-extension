@@ -20,45 +20,25 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
             chrome.webRequest.onBeforeRequest.removeListener(setTabActive);
         }
 
-        chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-            let url = tabs[0].url;
-            BaseParserInstance.isActiveTab = false
-            BaseParserInstance.isActive(url)
-        });
+        // chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+        //     if (tabs && tabs[0] && tabs[0].url) {
+        //         let url = tabs[0].url;
+        //         BaseParserInstance.isActiveTab = false
+        //         BaseParserInstance.isActive(url)
+        //     }
+        // });
 
         chrome.webRequest.onBeforeRequest.addListener(setTabActive, {urls: ["<all_urls>"]}, ["requestBody"]);
     }
 });
-//
-function setTabActive(details) {
-    BaseParserInstance.isActive(details.url)
-}
 
-// chrome.tabs.onActivated.addListener(function(activeInfo) {
-//     console.log(activeInfo.tabId);
-// });
-//
-// function getBody(details) {
-//     let body = false;
-//     if (details.requestBody && details.requestBody.raw && details.requestBody.raw[0]) {
-//         body = decodeURIComponent(String.fromCharCode.apply(null,
-//             new Uint8Array(details.requestBody.raw[0].bytes)));
-//     }
-//
-//     return body;
-// }
-//
-// function setActiveTabUrl(payload)
-// {
-//     chrome.storage.local.set(payload.tabId, payload)
-// }
-//
-// function clearCurrentTabStorage(tabId) {
-//     chrome.storage.local.get(null, function (items) {
-//         for (var key in items) {
-//             if (key.endsWith(`_${tabId}`)) {
-//                 chrome.storage.local.remove(key)
-//             }
-//         }
-//     })
-// }
+function setTabActive(details) {
+
+    if (details && details.url) {
+        let adapter = BaseParserInstance.hasAdapter(details.url)
+        if (adapter) {
+            adapter.setDetails(details)
+            console.log('Detected Url From background.js: ' + this.current_url)
+        }
+    }
+}

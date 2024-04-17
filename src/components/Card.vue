@@ -1,6 +1,6 @@
 <template>
   <div class="px-1.5">
-    <form class="pb-1" v-if="adapter">
+    <form class="pb-1" v-if="adapter && !adapter.isLoading">
       <div class="pb-1.5">
         <div class="flex justify-between py-2">
           <div class="grid gap-1 grid-cols-12 pb-1.5">
@@ -25,6 +25,9 @@
         <button class="form-border-color-btn col-span-6" @click="redirect">Assign Campaign</button>
       </div>
     </form>
+    <div class="text-white py-2 " v-else-if="adapter && adapter.isLoading">
+      Processing...
+    </div>
     <div class="text-white py-2 " v-else>
       Unsupported site
     </div>
@@ -42,7 +45,7 @@ export default {
   },
   methods: {
     copy () {
-      this.$clipboard(this.adapter.getCurrentUrl())
+      // this.$clipboard(this.adapter.getCurrentUrl())
     },
     redirect () {
       window.open(this.adapter.getCarSearchUrl(), "_blank")

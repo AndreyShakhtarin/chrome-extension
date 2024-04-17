@@ -10,6 +10,10 @@ export default class AstonBarclayAdapter {
 
     queryParam = 'astonbarclayUrl'
 
+    getTitle() {
+        return this.title
+    }
+
     is(url) {
         return url.indexOf('astonbarclay.net') !== -1;
     }
@@ -24,10 +28,6 @@ export default class AstonBarclayAdapter {
 
     getCurrentUrl () {
         return this.currentUrl
-    }
-
-    getTitle() {
-        return this.title
     }
 
     getCarSearchUrl() {

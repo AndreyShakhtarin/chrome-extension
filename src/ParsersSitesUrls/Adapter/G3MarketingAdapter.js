@@ -10,6 +10,10 @@ export default class G3MarketingAdapter {
 
     queryParam = 'g3Url'
 
+    getTitle() {
+        return this.title
+    }
+
     is(url) {
         return url.indexOf('g3remarketing.co.uk/lots') !== -1;
     }
@@ -24,10 +28,6 @@ export default class G3MarketingAdapter {
 
     getCurrentUrl () {
         return this.currentUrl
-    }
-
-    getTitle() {
-        return this.title
     }
 
     getCarSearchUrl() {

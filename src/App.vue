@@ -27,6 +27,7 @@ export default {
     },
 
     onUpdating() {
+      this.adapter ? this.adapter.isLoading = true : false
       browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
         if (changeInfo.status === "complete") {
           browser.webRequest.onBeforeRequest.hasListener(this.parseDetails) ? browser.webRequest.onBeforeRequest.removeListener(this.parseDetails) : false;
@@ -37,7 +38,8 @@ export default {
 
     parseDetails(details) {
       this.adapter.setDetails(details)
-      this.current_url = this.adapter.getCurrentUrl()
+      this.current_url = this.adapter.getCarSearchUrl()
+      console.log('Detected Url From Vue: ' + this.current_url)
     }
   },
   mounted() {

@@ -8,7 +8,9 @@ export default class AutoTradeAdapter {
 
     queryParam = 'autotraderUrl'
 
-    passiveUrl = ''
+    getTitle() {
+        return this.title
+    }
 
     is(url) {
         this.is_has = url.indexOf('autotrader.co.uk/car-search') !== -1
@@ -22,15 +24,11 @@ export default class AutoTradeAdapter {
     }
 
     setDetails(details, url) {
-        console.log(details, url)
+        // TODO FOR API REQUEST PARSE
     }
 
     getCurrentUrl () {
         return this.currentUrl
-    }
-
-    getTitle() {
-        return this.title
     }
 
     getCarSearchUrl() {
